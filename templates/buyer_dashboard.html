@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Buyer Dashboard | AgriGo</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🌾 AgriGo
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/">Home</a>
+
+            <a href="/buyer_dashboard" class="active">
+                Dashboard
+            </a>
+
+            <a href="/matches">
+                🤝 Matches
+            </a>
+
+            <a href="/logout">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ================= MAIN DASHBOARD ================= -->
+
+    <main class="dashboard-container">
+
+        <!-- Welcome -->
+
+        <section class="dashboard-header">
+
+            <div>
+
+                <p class="dashboard-label">
+                    BUYER PORTAL
+                </p>
+
+                <h1>
+                    Welcome, {{ buyer_name }} 👋
+                </h1>
+
+                <p>
+                    Find suitable farmers, manage your requirements
+                    and source agricultural products directly.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ACTION CARDS ================= -->
+
+        <section class="dashboard-cards">
+
+
+            <!-- Add Requirement -->
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-icon">
+                    📝
+                </div>
+
+                <h2>
+                    Add Requirement
+                </h2>
+
+                <p>
+                    Tell farmers what crop, quantity, quality
+                    and price you are looking for.
+                </p>
+
+                <a href="/add_requirement"
+                   class="dashboard-button">
+
+                    Add Requirement →
+
+                </a>
+
+            </div>
+
+
+            <!-- Find Farmers -->
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-icon">
+                    🤝
+                </div>
+
+                <h2>
+                    Find Farmers
+                </h2>
+
+                <p>
+                    Discover farmers whose available crops
+                    match your requirements.
+                </p>
+
+                <a href="/matches"
+                   class="dashboard-button">
+
+                    Find Farmers →
+
+                </a>
+
+            </div>
+
+
+            <!-- Price Prediction -->
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-icon">
+                    📈
+                </div>
+
+                <h2>
+                    Price Prediction
+                </h2>
+
+                <p>
+                    Check an estimated agricultural market
+                    price using historical data.
+                </p>
+
+                <a href="/price_prediction"
+                   class="dashboard-button">
+
+                    Predict Price →
+
+                </a>
+
+            </div>
+
+
+            <!-- Market Information -->
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-icon">
+                    📊
+                </div>
+
+                <h2>
+                    Market Insights
+                </h2>
+
+                <p>
+                    Understand crop prices and make better
+                    purchasing decisions.
+                </p>
+
+                <a href="/price_prediction"
+                   class="dashboard-button">
+
+                    View Insights →
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= MY REQUIREMENTS ================= -->
+
+        <section class="dashboard-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <p class="dashboard-label">
+                        YOUR REQUIREMENTS
+                    </p>
+
+                    <h2>
+                        My Crop Requirements
+                    </h2>
+
+                </div>
+
+                <a href="/add_requirement"
+                   class="small-button">
+
+                    + Add Requirement
+
+                </a>
+
+            </div>
+
+
+            {% if requirements %}
+
+            <div class="crop-table-wrapper">
+
+                <table class="crop-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Crop</th>
+
+                            <th>Required Quantity</th>
+
+                            <th>Maximum Price</th>
+
+                            <th>Quality</th>
+
+                            <th>Location</th>
+
+                            <th>Required Date</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for requirement in requirements %}
+
+                        <tr>
+
+                            <td>
+
+                                <strong>
+                                    {{ requirement["crop_name"] }}
+                                </strong>
+
+                            </td>
+
+                            <td>
+
+                                {{ requirement["quantity"] }} kg
+
+                            </td>
+
+                            <td>
+
+                                ₹{{ requirement["max_price"] }}/kg
+
+                            </td>
+
+                            <td>
+
+                                <span class="quality-badge">
+
+                                    {{ requirement["quality"] }}
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                📍 {{ requirement["location"] }}
+
+                            </td>
+
+                            <td>
+
+                                {{ requirement["required_date"] }}
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+            <!-- Empty state -->
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    📝
+                </div>
+
+                <h3>
+                    No requirements added yet
+                </h3>
+
+                <p>
+                    Add your first crop requirement to
+                    start finding suitable farmers.
+                </p>
+
+                <a href="/add_requirement"
+                   class="dashboard-button">
+
+                    Add Your First Requirement →
+
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </section>
+
+
+        <!-- ================= MATCHING INFO ================= -->
+
+        <section class="matching-banner">
+
+            <div class="matching-icon">
+                🌾
+            </div>
+
+            <div>
+
+                <h2>
+                    Find crops directly from farmers
+                </h2>
+
+                <p>
+                    AgriGo compares crop, quantity,
+                    location, price and quality to find
+                    suitable farmer listings.
+                </p>
+
+            </div>
+
+            <a href="/matches"
+               class="matching-button">
+
+                Find Farmers →
+
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <p>
+            © 2026 AgriGo. Connecting farmers directly with buyers.
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

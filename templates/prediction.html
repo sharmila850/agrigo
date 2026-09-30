@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Price Prediction - AgriGo</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f8f3;
+            color: #263326;
+        }
+
+        .navbar {
+            background: #1b5e20;
+            color: white;
+            padding: 18px 40px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 30px;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #1b5e20;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .form-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #2e7d32;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 8px;
+            background: #2e7d32;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1b5e20;
+        }
+
+        .results {
+            margin-top: 30px;
+        }
+
+        .result-card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 18px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .result-card h3 {
+            color: #555;
+            margin-bottom: 12px;
+        }
+
+        .price {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1b5e20;
+        }
+
+        .category {
+            font-size: 30px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .low {
+            color: #d68910;
+        }
+
+        .medium {
+            color: #e67e22;
+        }
+
+        .high {
+            color: #c0392b;
+        }
+
+        .note {
+            margin-top: 10px;
+            color: #666;
+            font-size: 14px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="navbar">
+        🌱 AgriGo
+    </div>
+
+
+    <div class="container">
+
+        <h1 class="title">Crop Price Prediction</h1>
+
+        <p class="subtitle">
+            Enter the crop and market details to predict the expected market price.
+        </p>
+
+
+        <!-- ========================= -->
+        <!-- PREDICTION FORM -->
+        <!-- ========================= -->
+
+        <div class="form-card">
+
+            <form method="POST" action="/price_prediction">
+
+                <div class="form-group">
+                    <label>State</label>
+                    <input
+                        type="text"
+                        name="state"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>District</label>
+                    <input
+                        type="text"
+                        name="district"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Market</label>
+                    <input
+                        type="text"
+                        name="market"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Commodity</label>
+                    <input
+                        type="text"
+                        name="commodity"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Variety</label>
+                    <input
+                        type="text"
+                        name="variety"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Grade</label>
+                    <input
+                        type="text"
+                        name="grade"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Date</label>
+                    <input
+                        type="date"
+                        name="date"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>
+                        Previous Market Price (₹/quintal)
+                    </label>
+
+                    <input
+                        type="number"
+                        name="previous_price"
+                        step="0.01"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>
+                        7-Day Average Price (₹/quintal)
+                    </label>
+
+                    <input
+                        type="number"
+                        name="price_7_day_avg"
+                        step="0.01"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>
+                        30-Day Average Price (₹/quintal)
+                    </label>
+
+                    <input
+                        type="number"
+                        name="price_30_day_avg"
+                        step="0.01"
+                        required
+                    >
+                </div>
+
+
+                <button type="submit">
+                    Predict Price
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- ========================= -->
+        <!-- RESULTS -->
+        <!-- ========================= -->
+
+        {% if prediction %}
+
+        <div class="results">
+
+
+            <!-- DECISION TREE RESULT -->
+
+            <div class="result-card">
+
+                <h3>
+                    🌳 Predicted Market Price
+                </h3>
+
+                <div class="price">
+                    ₹{{ prediction }} / quintal
+                </div>
+
+                <p class="note">
+                    Equivalent to approximately
+                    <strong>
+                        ₹{{ (prediction / 100)|round(2) }} / kg
+                    </strong>
+                </p>
+
+                <p class="note">
+                    1 quintal = 100 kg
+                </p>
+
+            </div>
+
+
+            <!-- RANDOM FOREST RESULT -->
+
+            {% if price_category %}
+
+            <div class="result-card">
+
+                <h3>
+                    🌲 Expected Price Category
+                </h3>
+
+
+                {% if price_category == "Low" %}
+
+                    <div class="category low">
+                        Low
+                    </div>
+
+                    <p class="note">
+                        The predicted market price falls in the lower
+                        price category.
+                    </p>
+
+
+                {% elif price_category == "Medium" %}
+
+                    <div class="category medium">
+                        Medium
+                    </div>
+
+                    <p class="note">
+                        The predicted market price falls in the
+                        medium price category.
+                    </p>
+
+
+                {% elif price_category == "High" %}
+
+                    <div class="category high">
+                        High
+                    </div>
+
+                    <p class="note">
+                        The predicted market price falls in the higher
+                        price category.
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+            {% endif %}
+
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+
+</html>

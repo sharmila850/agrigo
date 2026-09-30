@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Matches | AgriConnect AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="matches-page">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+
+        <div class="nav-container">
+
+            <a href="/" class="logo">
+                🌱 AgriGo <span>AI</span>
+            </a>
+
+            <div class="nav-links">
+
+                {% if role == "farmer" %}
+                    <a href="/farmer_dashboard">Dashboard</a>
+                {% else %}
+                    <a href="/buyer_dashboard">Dashboard</a>
+                {% endif %}
+
+                <a href="/matches" class="active">
+                    🤝 Matches
+                </a>
+
+                <a href="/logout">
+                    Logout
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Main -->
+    <main class="matches-container">
+
+        <!-- Header -->
+        <section class="matches-header">
+
+            <div>
+
+                <p class="matches-label">
+                    SMART MATCHING
+                </p>
+
+                <h1>
+                    {% if role == "farmer" %}
+                        Buyer Matches 🤝
+                    {% else %}
+                        Farmer Matches 🤝
+                    {% endif %}
+                </h1>
+
+                <p>
+                    {% if role == "farmer" %}
+                        Find buyers whose requirements match your crop listings.
+                    {% else %}
+                        Find farmers whose available crops match your requirements.
+                    {% endif %}
+                </p>
+
+            </div>
+
+            <div class="match-count">
+
+                <span>{{ matches|length }}</span>
+
+                <small>
+                    Match{% if matches|length != 1 %}es{% endif %} Found
+                </small>
+
+            </div>
+
+        </section>
+
+
+        {% if matches %}
+
+            <!-- Match Introduction -->
+            <div class="match-info-banner">
+
+                <div class="match-info-icon">
+                    ✨
+                </div>
+
+                <div>
+                    <strong>
+                        Smart matches are based on crop, quantity,
+                        location, price and quality.
+                    </strong>
+
+                    <p>
+                        Review the details below and connect directly
+                        with the other party.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- Match Cards -->
+            <section class="matches-grid">
+
+                {% for match in matches %}
+
+                    <article class="match-card">
+
+                        <!-- Card Top -->
+                        <div class="match-card-top">
+
+                            <div class="person-section">
+
+                                <div class="person-avatar">
+
+                                    {% if role == "farmer" %}
+                                        🏪
+                                    {% else %}
+                                        🌾
+                                    {% endif %}
+
+                                </div>
+
+                                <div>
+
+                                    <span class="person-type">
+                                        {% if role == "farmer" %}
+                                            BUYER
+                                        {% else %}
+                                            FARMER
+                                        {% endif %}
+                                    </span>
+
+                                    <h2>
+                                        {% if role == "farmer" %}
+                                            {{ match.buyer_name }}
+                                        {% else %}
+                                            {{ match.farmer_name }}
+                                        {% endif %}
+                                    </h2>
+
+                                    <p class="person-location">
+                                        📍
+                                        {% if role == "farmer" %}
+                                            {{ match.buyer_location }}
+                                        {% else %}
+                                            {{ match.farmer_location }}
+                                        {% endif %}
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Match Score -->
+                            <div class="match-score">
+
+                                <span class="score-number">
+                                    {{ match.score }}%
+                                </span>
+
+                                <span class="score-label">
+                                    Match
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Crop -->
+                        <div class="crop-match-title">
+
+                            <span>🌱</span>
+
+                            <div>
+                                <small>Crop</small>
+
+                                <strong>
+                                    {{ match.crop_name }}
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <!-- Details -->
+                        <div class="match-details">
+
+                            <div class="match-detail">
+
+                                <span class="detail-icon">
+                                    📦
+                                </span>
+
+                                <div>
+                                    <small>
+                                        {% if role == "farmer" %}
+                                            Available Quantity
+                                        {% else %}
+                                            Required Quantity
+                                        {% endif %}
+                                    </small>
+
+                                    <strong>
+                                        {% if role == "farmer" %}
+                                            {{ match.farmer_quantity }}
+                                        {% else %}
+                                            {{ match.buyer_quantity }}
+                                        {% endif %}
+                                        kg
+                                    </strong>
+                                </div>
+
+                            </div>
+
+
+                            <div class="match-detail">
+
+                                <span class="detail-icon">
+                                    💰
+                                </span>
+
+                                <div>
+
+                                    <small>
+                                        {% if role == "farmer" %}
+                                            Buyer's Max Price
+                                        {% else %}
+                                            Expected Price
+                                        {% endif %}
+                                    </small>
+
+                                    <strong>
+                                        ₹
+                                        {% if role == "farmer" %}
+                                            {{ match.buyer_max_price }}
+                                        {% else %}
+                                            {{ match.farmer_expected_price }}
+                                        {% endif %}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="match-detail">
+
+                                <span class="detail-icon">
+                                    ⭐
+                                </span>
+
+                                <div>
+
+                                    <small>
+                                        Quality
+                                    </small>
+
+                                    <strong>
+                                        {% if role == "farmer" %}
+                                            {{ match.farmer_quality }}
+                                        {% else %}
+                                            {{ match.farmer_quality }}
+                                        {% endif %}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="match-detail">
+
+                                <span class="detail-icon">
+                                    📍
+                                </span>
+
+                                <div>
+
+                                    <small>
+                                        Location
+                                    </small>
+
+                                    <strong>
+                                        {% if role == "farmer" %}
+                                            {{ match.farmer_location }}
+                                        {% else %}
+                                            {{ match.farmer_location }}
+                                        {% endif %}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Contact -->
+                        <div class="match-contact">
+
+                            <div>
+
+                                <span class="contact-icon">
+                                    ✉️
+                                </span>
+
+                                <div>
+
+                                    <small>
+                                        Contact
+                                    </small>
+
+                                    <p>
+                                        {% if role == "farmer" %}
+                                            {{ match.buyer_email }}
+                                        {% else %}
+                                            {{ match.farmer_email }}
+                                        {% endif %}
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <a
+                                href="mailto:{% if role == 'farmer' %}{{ match.buyer_email }}{% else %}{{ match.farmer_email }}{% endif %}"
+                                class="contact-button"
+                            >
+                                Contact
+                                <span>→</span>
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </section>
+
+
+        {% else %}
+
+            <!-- No Matches -->
+            <section class="no-matches">
+
+                <div class="no-match-icon">
+                    🔍
+                </div>
+
+                <h2>
+                    No matches found yet
+                </h2>
+
+                <p>
+                    {% if role == "farmer" %}
+                        Add a crop listing to discover buyers
+                        looking for your crops.
+                    {% else %}
+                        Add a crop requirement to discover
+                        farmers with matching crops.
+                    {% endif %}
+                </p>
+
+
+                {% if role == "farmer" %}
+
+                    <a href="/add_crop" class="match-primary-button">
+                        + List Your Crop
+                    </a>
+
+                {% else %}
+
+                    <a href="/add_requirement" class="match-primary-button">
+                        + Add Requirement
+                    </a>
+
+                {% endif %}
+
+            </section>
+
+        {% endif %}
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="matches-footer">
+
+        <p>
+            © 2026 AgriGo AI · Connecting Farmers Directly With Buyers
+        </p>
+
+    </footer>
+
+</body>
+</html>

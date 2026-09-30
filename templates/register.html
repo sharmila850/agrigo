@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Register - AgriGo</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+
+        <div class="logo">
+            🌾 AgriGo
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/login">
+                Login
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Register Section -->
+    <section class="auth-section">
+
+        <div class="auth-card">
+
+            <div class="auth-icon">
+                🌱
+            </div>
+
+            <h1>
+                Create Your Account
+            </h1>
+
+            <p class="auth-subtitle">
+                Join AgriConnect and connect with the agricultural marketplace.
+            </p>
+
+
+            <form method="POST" action="/register">
+
+                <!-- Name -->
+                <div class="form-group">
+
+                    <label>
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Enter your name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Email -->
+                <div class="form-group">
+
+                    <label>
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Password -->
+                <div class="form-group">
+
+                    <label>
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Create a password"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Location -->
+                <div class="form-group">
+
+                    <label>
+                        Location
+                    </label>
+
+                    <input
+                        type="text"
+                        name="location"
+                        placeholder="Enter your location"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Role -->
+                <div class="form-group">
+
+                    <label>
+                        I am a
+                    </label>
+
+                    <select name="role" required>
+
+                        <option value="">
+                            Select your role
+                        </option>
+
+                        <option value="farmer">
+                            🌾 Farmer
+                        </option>
+
+                        <option value="buyer">
+                            🛒 Buyer
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Submit -->
+                <button
+                    type="submit"
+                    class="auth-button"
+                >
+                    Create Account
+                </button>
+
+            </form>
+
+
+            <p class="auth-footer">
+
+                Already have an account?
+
+                <a href="/login">
+                    Login here
+                </a>
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <div class="footer-logo">
+            🌾 AgriGo AI
+        </div>
+
+        <p>
+            Connecting farmers directly with buyers through technology.
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

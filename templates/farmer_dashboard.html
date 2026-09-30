@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Farmer Dashboard | AgriGo</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🌾 AgriGo
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/">Home</a>
+
+            <a href="/farmer_dashboard" class="active">
+                Dashboard
+            </a>
+
+            <a href="/matches">
+                🤝 Matches
+            </a>
+
+            <a href="/logout">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ================= DASHBOARD ================= -->
+
+    <main class="dashboard-container">
+
+        <!-- Welcome Section -->
+
+        <section class="dashboard-header">
+
+            <div>
+
+                <p class="dashboard-label">
+                    FARMER PORTAL
+                </p>
+
+                <h1>
+                    Welcome, {{ farmer_name }} 👋
+                </h1>
+
+                <p>
+                    Manage your crops, discover buyers and get
+                    agricultural insights in one place.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ACTION CARDS ================= -->
+
+        <section class="dashboard-cards">
+
+
+            <!-- Add Crop -->
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-icon">
+                    🌱
+                </div>
+
+                <h2>
+                    Add Crop
+                </h2>
+
+                <p>
+                    List your available crops and connect
+                    them with potential buyers.
+                </p>
+
+                <a href="/add_crop" class="dashboard-button">
+                    Add Crop →
+                </a>
+
+            </div>
+
+
+            <!-- Buyer Matches -->
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-icon">
+                    🤝
+                </div>
+
+                <h2>
+                    Buyer Matches
+                </h2>
+
+                <p>
+                    Find buyers whose requirements match
+                    your available crops.
+                </p>
+
+                <a href="/matches" class="dashboard-button">
+                    View Matches →
+                </a>
+
+            </div>
+
+
+            <!-- Price Prediction -->
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-icon">
+                    📈
+                </div>
+
+                <h2>
+                    Price Prediction
+                </h2>
+
+                <p>
+                    Get an estimated market price using
+                    historical agricultural data.
+                </p>
+
+                <a href="/price_prediction" class="dashboard-button">
+                    Predict Price →
+                </a>
+
+            </div>
+
+
+            <!-- Disease Detection -->
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-icon">
+                    🍃
+                </div>
+
+                <h2>
+                    Disease Detection
+                </h2>
+
+                <p>
+                    Upload a crop leaf image to identify
+                    possible plant diseases.
+                </p>
+
+                <a href="/disease_detection" class="dashboard-button">
+                    Detect Disease →
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= MY CROPS ================= -->
+
+        <section class="dashboard-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <p class="dashboard-label">
+                        YOUR LISTINGS
+                    </p>
+
+                    <h2>
+                        My Crop Listings
+                    </h2>
+
+                </div>
+
+                <a href="/add_crop" class="small-button">
+                    + Add New Crop
+                </a>
+
+            </div>
+
+
+            {% if crops %}
+
+            <div class="crop-table-wrapper">
+
+                <table class="crop-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Crop</th>
+
+                            <th>Quantity</th>
+
+                            <th>Quality</th>
+
+                            <th>Expected Price</th>
+
+                            <th>Location</th>
+
+                            <th>Available Date</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for crop in crops %}
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    {{ crop["crop_name"] }}
+                                </strong>
+                            </td>
+
+                            <td>
+                                {{ crop["quantity"] }} kg
+                            </td>
+
+                            <td>
+                                <span class="quality-badge">
+                                    {{ crop["quality"] }}
+                                </span>
+                            </td>
+
+                            <td>
+                                ₹{{ crop["expected_price"] }}/kg
+                            </td>
+
+                            <td>
+                                📍 {{ crop["location"] }}
+                            </td>
+
+                            <td>
+                                {{ crop["available_date"] }}
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    🌱
+                </div>
+
+                <h3>
+                    No crops listed yet
+                </h3>
+
+                <p>
+                    Add your first crop to start connecting
+                    with potential buyers.
+                </p>
+
+                <a href="/add_crop" class="dashboard-button">
+                    Add Your First Crop →
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </section>
+
+
+        <!-- ================= MATCHING INFO ================= -->
+
+        <section class="matching-banner">
+
+            <div class="matching-icon">
+                🤝
+            </div>
+
+            <div>
+
+                <h2>
+                    Find the right buyers
+                </h2>
+
+                <p>
+                    AgriGo compares crop, quantity,
+                    location, price and quality to identify
+                    suitable buyer requirements.
+                </p>
+
+            </div>
+
+            <a href="/matches" class="matching-button">
+                Explore Matches →
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <p>
+            © 2026 AgriGo. Connecting farmers directly with buyers.
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

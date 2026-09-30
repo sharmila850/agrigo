@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | AgriConnect AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="auth-page">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+
+        <div class="nav-container">
+
+            <a href="/" class="logo">
+                🌱 AgriGo
+            </a>
+
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/register" class="nav-register">
+                    Create Account
+                </a>
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Login Section -->
+    <main class="auth-container">
+
+        <div class="auth-card">
+
+            <!-- Left Side -->
+            <div class="auth-info">
+
+                <div class="auth-brand-icon">
+                    🌾
+                </div>
+
+                <p class="auth-label">
+                    WELCOME BACK
+                </p>
+
+                <h1>
+                    Grow your business<br>
+                    with AgriConnect
+                </h1>
+
+                <p class="auth-description">
+                    Connect directly with farmers and buyers,
+                    discover opportunities, and make smarter
+                    agricultural decisions.
+                </p>
+
+                <div class="auth-features">
+
+                    <div class="auth-feature">
+                        <span>🤝</span>
+                        <div>
+                            <strong>Direct Connections</strong>
+                            <p>Connect farmers and buyers directly.</p>
+                        </div>
+                    </div>
+
+                    <div class="auth-feature">
+                        <span>📊</span>
+                        <div>
+                            <strong>Smart Market Insights</strong>
+                            <p>Use data to understand market prices.</p>
+                        </div>
+                    </div>
+
+                    <div class="auth-feature">
+                        <span>🌱</span>
+                        <div>
+                            <strong>Better Opportunities</strong>
+                            <p>Find suitable agricultural matches.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Right Side -->
+            <div class="auth-form-section">
+
+                <div class="auth-form-header">
+
+                    <h2>Welcome back 👋</h2>
+
+                    <p>
+                        Login to continue to your dashboard.
+                    </p>
+
+                </div>
+
+
+                <form method="POST" action="/login" class="auth-form">
+
+                    <!-- Email -->
+                    <div class="auth-form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <div class="input-wrapper">
+                            <span class="input-icon">✉️</span>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email"
+                                required
+                            >
+                        </div>
+
+                    </div>
+
+
+                    <!-- Password -->
+                    <div class="auth-form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="input-wrapper">
+                            <span class="input-icon">🔒</span>
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                required
+                            >
+                        </div>
+
+                    </div>
+
+
+                    <!-- Submit -->
+                    <button type="submit" class="auth-submit">
+                        Login to AgriConnect
+                        <span>→</span>
+                    </button>
+
+                </form>
+
+
+                <!-- Register -->
+                <div class="auth-bottom">
+
+                    <p>
+                        Don't have an account?
+                        <a href="/register">
+                            Create an account
+                        </a>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="auth-footer">
+        © 2026 AgriConnect AI · Connecting Farmers Directly With Buyers
+    </footer>
+
+
+</body>
+</html>
